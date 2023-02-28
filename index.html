@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>City Temperature Information</title>
+    <style>
+      body {
+        background-color: #E8F0F2;
+        font-family: Arial, sans-serif;
+      }
+      h1 {
+    color: #2E86C1;
+    text-align: center;
+  }
+  
+  label {
+    display: block;
+    color: #2E86C1;
+    margin-top: 20px;
+  }
+  
+  select {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #F7F9F9;
+    margin-bottom: 20px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #2E86C1;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #FFFFFF;
+  }
+  
+  th {
+    background-color: #2E86C1;
+    color: #FFFFFF;
+    text-align: left;
+    padding: 10px;
+  }
+  
+  td {
+    border: 1px solid #CCCCCC;
+    padding: 10px;
+  }
+  
+  tbody tr:nth-child(even) {
+    background-color: #F7F9F9;
+  }
+</style>
+<script src="abc.js"></script>
+  </head>
+  <body>
+    <h1>HEAT WAVE PREDICTION IN TIER 2 CITIES OF TELANGNA -2023</h1>
+    <h3>The India Meteorological Department (IMD) declares a heatwave when the maximum temperature in a particular location reaches or exceeds a threshold value, which varies depending on the location. The threshold values for a heatwave are typically defined as temperatures that are significantly higher than the average maximum temperature for that location during the summer season.
+     TIME SERIES ANALYSIS OF DATA FROM 2018-2022 HAS BEEN DONE TO PREDICT THE HEATWAVE OCCURENCES</h3>
+    <label for="city-select">Select a city:</label>
+    <select id="city-select">
+      <option value="siddipet">Siddipet</option>
+      <option value="nizamabad">Nizamabad</option>
+      <option value="karimnagar">Karimnagar</option>
+      <option value="adilabad">Adilabad</option>
+      <option value="nalgonda">Nalgonda</option>
+      <option value="khammam">Khammam</option>
+      <option value="warangal">Warangal</option>
+    </select>
+    <button id="display-btn">Display Information</button>
+    <table id="temp-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Predicted Temperature</th>
+          <th>Cateogry of Heat wave</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <script>
+        const citySelect = document.getElementById('city-select');
+const displayBtn = document.getElementById('display-btn');
+const tempTableBody = document.querySelector('#temp-table tbody');
+
+const temperatureData = {
+  siddipet: [
+  { date: '2023-04-01', temperature: 38.918605680881655, category: 'Heat Wave' },
+  { date: '2023-04-02', temperature: 38.63441291132942, category: 'Heat Wave' },
+  { date: '2023-05-01', temperature: 40.32974260086235, category: 'Severe Heat Wave' },
+  { date: '2023-05-02', temperature: 40.83743722479131, category: 'Severe Heat Wave' },
+  { date: '2023-05-03', temperature: 40.139078723289686, category: 'Severe Heat Wave' },
+  { date: '2023-05-04', temperature: 39.89229413872982, category: 'Heat Wave' },
+  { date: '2023-05-05', temperature: 39.45132744070389, category: 'Heat Wave' },
+  { date: '2023-05-06', temperature: 39.398466166907475, category: 'Heat Wave' },
+  { date: '2023-05-07', temperature: 39.349057444743295, category: 'Heat Wave' },
+  { date: '2023-05-08', temperature: 39.302875776187605, category: 'Heat Wave' },
+  { date: '2023-05-09', temperature: 39.259710391268314, category: 'Heat Wave' },
+  { date: '2023-05-10', temperature: 39.219364286125234, category: 'Heat Wave' },
+  { date: '2023-05-11', temperature: 39.181653323897976, category: 'Heat Wave' },
+  { date: '2023-05-12', temperature: 39.146405394337926, category: 'Heat Wave' },
+  { date: '2023-05-13', temperature: 39.11345962830886, category: 'Heat Wave' },
+  { date: '2023-05-14', temperature: 39.082665663591214, category: 'Heat Wave' },
+  { date: '2023-05-15', temperature: 39.05388295863925, category: 'Heat Wave' },
+  { date: '2023-05-16', temperature: 39.026980151159, category: 'Heat Wave' },
+  { date: '2023-05-17', temperature: 39.00183445857983, category: 'Heat Wave' },
+  { date: '2023-05-18', temperature: 38.97833111768314, category: 'Heat Wave' },
+  { date: '2023-05-19', temperature: 38.956362860830936, category: 'Heat Wave' },
+  { date: '2023-05-20', temperature: 38.935829426403636, category: 'Heat Wave' },
+  { date: '2023-05-21', temperature: 38.91663710121295, category: 'Heat Wave' },
+  { date: '2023-05-22', temperature: 38.89869829280127, category: 'Heat Wave' },
+  { date: '2023-05-23', temperature: 38.88193112967571, category: 'Heat Wave'},
+  { date: '2023-05-24', temperature: 38.86625908765223, category: 'Heat Wave'},
+  { date: '2023-05-25', temperature: 38.85161064060448, category: 'Heat Wave'},
+  { date: '2023-05-26', temperature: 38.83791893402346, category: 'Heat Wave'},
+  { date: '2023-05-27', temperature: 38.8251214798981, category: 'Heat Wave'},
+  { date: '2023-05-28', temperature: 38.81315987152448, category: 'Heat Wave'},
+  { date: '2023-05-29', temperature: 38.80197951694113, category: 'Heat Wave'},
+  { date: '2023-05-30', temperature: 38.791529389775576, category: 'Heat Wave'},
+
+],
+  nizamabad: [
+  {date: '2023-04-01', temperature: 40.18928860721544, category: 'Severe Heat Wave'},
+  {date: '2023-04-02', temperature: 39.81815287711575, category: 'Heat Wave'},
+  {date: '2023-04-03', temperature: 39.82068155579053, category: 'Heat Wave'},
+  {date: '2023-04-04', temperature: 39.813806197002606, category: 'Heat Wave'},
+  {date: '2023-05-01', temperature: 41.45389640654525, category: 'Severe Heat Wave'},
+  {date: '2023-05-02', temperature: 41.53670144772504, category: 'Severe Heat Wave'},
+  {date: '2023-05-03', temperature: 41.611161525616936, category: 'Severe Heat Wave'},
+  {date: '2023-05-04', temperature: 41.30454213056689, category: 'Severe Heat Wave'},
+  {date: '2023-05-05', temperature: 40.52969631574597, category: 'Severe Heat Wave'},
+  {date: '2023-05-06', temperature: 40.48131034897604, category: 'Severe Heat Wave'},
+  {date: '2023-05-07', temperature: 40.43629362092068, category: 'Severe Heat Wave'},
+  {date: '2023-05-08', temperature: 40.39441152286433, category: 'Severe Heat Wave'},
+  {date: '2023-05-09', temperature: 40.35544578249677, category: 'Severe Heat Wave'},
+  {date: '2023-05-10', temperature: 40.319193326367454, category: 'Severe Heat Wave'},
+  {date: '2023-05-11', temperature: 40.28546522154996, category: 'Severe Heat Wave'},
+  {date: '2023-05-12', temperature: 40.25408569100114, category: 'Severe Heat Wave'},
+  {date: '2023-05-13', temperature: 40.22489119748326, category: 'Severe Heat Wave'},
+  {date: '2023-05-14', temperature: 40.197729591275056, category: 'Severe Heat Wave'},
+  {date: '2023-05-15', temperature: 40.172459317229794, category: 'Severe Heat Wave'},
+  {date: '2023-05-16', temperature: 40.148948677047926, category: 'Severe Heat Wave'},
+  {date: '2023-05-17', temperature: 40.127075142919594, category: 'Severe Heat Wave'},
+  {date: '2023-05-18', temperature: 40.10672471895997, category: 'Severe Heat Wave'},
+  {date: '2023-05-19', temperature: 40.08779134710945, category: 'Severe Heat Wave'},
+  {date: '2023-05-20', temperature: 40.07017635440262, category: 'Severe Heat Wave'},
+  { date: '2023-05-21', temperature: 40.053787938725186, category: 'Severe Heat Wave' },
+  { date: '2023-05-22', temperature: 40.038540690379044, category: 'Severe Heat Wave' },
+  { date: '2023-05-23', temperature: 40.024355146961994, category: 'Severe Heat Wave'},
+  { date: '2023-05-24', temperature: 40.0111573792423, category: 'Severe Heat Wave'},
+  { date: '2023-05-25', temperature: 39.998878605869834, category: 'Heat Wave'},
+  { date: '2023-05-26', temperature: 39.987454834915965, category: 'Heat Wave'},
+  { date: '2023-05-27', temperature: 39.97682653037382, category: 'Heat Wave'},
+  { date: '2023-05-28', temperature: 39.96693830188108, category: 'Heat Wave'},
+  { date: '2023-05-29', temperature: 39.95773861604813, category: 'Heat Wave'},
+  { date: '2023-05-30', temperature: 39.94917952788718, category: 'Heat Wave'}
+],
+  karimnagar:  [
+  { date: '2023-04-01', temperature: 39.8709916540993, category: 'Heat Wave' },
+  { date: '2023-05-01', temperature: 40.738641861047455, category: 'Severe Heat Wave' },
+  { date: '2023-05-02', temperature: 42.00269908115945, category: 'Severe Heat Wave' },
+  { date: '2023-05-03', temperature: 41.15515217693319, category: 'Severe Heat Wave' },
+  { date: '2023-05-04', temperature: 41.18765321717001, category: 'Severe Heat Wave' },
+  { date: '2023-05-05', temperature: 40.78114237465069, category: 'Severe Heat Wave' },
+  { date: '2023-05-06', temperature: 40.72530348752515, category: 'Severe Heat Wave' },
+  { date: '2023-05-07', temperature: 40.67280153281676, category: 'Severe Heat Wave' },
+  { date: '2023-05-08', temperature: 40.62343709541307, category: 'Severe Heat Wave' },
+  { date: '2023-05-09', temperature: 40.577022677250554, category: 'Severe Heat Wave' },
+  { date: '2023-05-10', temperature: 40.533381985151784, category: 'Severe Heat Wave' },
+  { date: '2023-05-11', temperature: 40.49234926122122, category: 'Severe Heat Wave' },
+  { date: '2023-05-12', temperature: 40.45376865325673, category: 'Severe Heat Wave' },
+  { date: '2023-05-13', temperature: 40.41749362278523, category: 'Severe Heat Wave' },
+  { date: '2023-05-14', temperature: 40.383386388474165, category: 'Severe Heat Wave' },
+  { date: '2023-05-15', temperature: 40.3513174028047, category: 'Severe Heat Wave' },
+  { date: '2023-05-16', temperature: 40.321164860018946, category: 'Severe Heat Wave' },
+  { date: '2023-05-17', temperature: 40.292814233472235, category: 'Severe Heat Wave' },
+  { date: '2023-05-18', temperature: 40.26615784063326, category: 'Severe Heat Wave' },
+  { date: '2023-05-19', temperature: 40.241094434079784, category: 'Severe Heat Wave' },
+  { date: '2023-05-20', temperature: 40.21752881693649, category: 'Severe Heat Wave' },
+  { date: '2023-05-21', temperature: 40.19537148129421, category: 'Severe Heat Wave' },
+  { date: '2023-05-22', temperature: 40.17453826823725, category: 'Severe Heat Wave' },
+  { date: '2023-05-23', temperature: 40.15495004818754, category: 'Severe Heat Wave'},
+  { date: '2023-05-24', temperature: 40.136532420351294, category: 'Severe Heat Wave'},
+  { date: '2023-05-25', temperature: 40.1192154301269, category: 'Severe Heat Wave'},
+  { date: '2023-05-26', temperature: 40.10293330340036, category: 'Severe Heat Wave'},
+  { date: '2023-05-27', temperature: 40.087624196719375, category: 'Severe Heat Wave'},
+  { date: '2023-05-28', temperature: 40.0732299623969, category: 'Severe Heat Wave'},
+  { date: '2023-05-29', temperature: 40.05969592765224, category: 'Severe Heat Wave'},
+  { date: '2023-05-30', temperature: 40.04697068695057, category: 'Severe Heat Wave'}
+  ],
+  adilabad: // Create an array of objects representing the data
+ [
+  { date: "2023-04-01", temperature: 39.71932194939097, category: "Heat Wave" },
+  { date: "2023-05-01", temperature: 41.64828046690617, category: "Severe Heat Wave" },
+  { date: "2023-05-02", temperature: 41.007821302410264, category: "Severe Heat Wave" },
+  { date: "2023-05-03", temperature: 42.409847540988494, category: "Severe Heat Wave" },
+  { date: "2023-05-04", temperature: 41.0637768967731, category: "Severe Heat Wave" },
+  { date: "2023-05-05", temperature: 40.75072365255937, category: "Severe Heat Wave" },
+  { date: "2023-05-06", temperature: 40.68705700229503, category: "Severe Heat Wave" },
+  { date: "2023-05-07", temperature: 40.6286762316312, category: "Severe Heat Wave" },
+  { date: "2023-05-08", temperature: 40.57514248407025, category: "Severe Heat Wave" },
+  { date: "2023-05-09", temperature: 40.52605333887171, category: "Severe Heat Wave" },
+  { date: "2023-05-10", temperature: 40.48103978599874, category: "Severe Heat Wave" },
+  { date: "2023-05-11", temperature: 40.43976345221755, category: "Severe Heat Wave" },
+  { date: "2023-05-12", temperature: 40.40191405749805, category: "Severe Heat Wave" },
+  { date: "2023-05-13", temperature: 40.36720708259504, category: "Severe Heat Wave" },
+  { date: "2023-05-14", temperature: 40.33538163027682, category: "Severe Heat Wave" },
+  { date: "2023-05-15", temperature: 40.30619846412393, category: "Severe Heat Wave" },
+  { date: "2023-05-16", temperature: 40.279438210155135, category: "Severe Heat Wave" },
+  { date: "2023-05-17", temperature: 40.25489970776226, category: "Severe Heat Wave" },
+  { date: "2023-05-18", temperature: 40.23239849755748, category: "Severe Heat Wave" },
+  { date: "2023-05-19", temperature: 40.21176543476606, category: "Severe Heat Wave" },
+  { date: "2023-05-20", temperature: 40.192845417741175, category: "Severe Heat Wave" },
+  { date: "2023-05-21", temperature: 40.175496222042966, category: "Severe Heat Wave" },
+  { date: "2023-05-22", temperature: 40.15958743131731,category: "Severe Heat Wave"},
+  { date: '2023-05-23', temperature: 40.14499945693768, category: 'Severe Heat Wave'},
+  { date: '2023-05-24', temperature: 40.13162263904054, category: 'Severe Heat Wave'},
+  { date: '2023-05-25', temperature: 40.11935642219668, category: 'Severe Heat Wave'},
+  { date: '2023-05-26', temperature: 40.10810859952184, category: 'Severe Heat Wave'},
+  { date: '2023-05-27', temperature: 40.09779461954455, category: 'Severe Heat Wave'},
+  { date: '2023-05-28', temperature: 40.08833695062079, category: 'Severe Heat Wave'},
+  { date: '2023-05-29', temperature: 40.07966449811764, category: 'Severe Heat Wave'},
+  { date: '2023-05-30', temperature: 40.07171206998489, category: 'Severe Heat Wave'}
+  ],
+  nalgonda: [
+  { date: '2023-05-01', temperature: 42.49486506773696, category: 'Severe Heat Wave' },
+  { date: '2023-05-02', temperature: 41.68275747123618, category: 'Severe Heat Wave' },
+  { date: '2023-05-03', temperature: 41.26055678109534, category: 'Severe Heat Wave' },
+  { date: '2023-05-04', temperature: 40.93967564951782, category: 'Severe Heat Wave' },
+  { date: '2023-05-05', temperature: 40.89678431496422, category: 'Severe Heat Wave' },
+  { date: '2023-05-06', temperature: 40.808461259826224, category: 'Severe Heat Wave' },
+  { date: '2023-05-07', temperature: 40.725611812546575, category: 'Severe Heat Wave' },
+  { date: '2023-05-08', temperature: 40.647896759508406, category: 'Severe Heat Wave' },
+  { date: '2023-05-09', temperature: 40.574997909038835, category: 'Severe Heat Wave' },
+  { date: '2023-05-10', temperature: 40.50661678862481, category: 'Severe Heat Wave' },
+  { date: '2023-05-11', temperature: 40.44247342286586, category: 'Severe Heat Wave' },
+  { date: '2023-05-12', temperature: 40.38230518716021, category: 'Severe Heat Wave' },
+  { date: '2023-05-13', temperature: 40.32586573243103, category: 'Severe Heat Wave' },
+  { date: '2023-05-14', temperature: 40.272923976490056, category: 'Severe Heat Wave' },
+  { date: '2023-05-15', temperature: 40.2232631579091, category: 'Severe Heat Wave' },
+  { date: '2023-05-16', temperature: 40.17667994852557, category: 'Severe Heat Wave' },
+  { date: '2023-05-17', temperature: 40.132983620948266, category: 'Severe Heat Wave' },
+  { date: '2023-05-18', temperature: 40.09199526765508, category: 'Severe Heat Wave' },
+  { date: '2023-05-19', temperature: 40.05354706848514, category: 'Severe Heat Wave' },
+  { date: '2023-05-20', temperature: 40.01748160352641, category: 'Severe Heat Wave' },
+  { date: '2023-05-21', temperature: 39.983651208585414, category: 'Heat Wave' },
+  { date: '2023-05-22', temperature: 39.951917370600135, category: 'Heat Wave' },
+  { date: '2023-05-23', temperature: 39.92215016052079, category: 'Heat Wave'},
+  { date: '2023-05-24', temperature: 39.89422770133641, category: 'Heat Wave'},
+  { date: '2023-05-25', temperature: 39.86803566906919, category: 'Heat Wave'},
+  { date: '2023-05-26', temperature: 39.84346682469351, category: 'Heat Wave'},
+  { date: '2023-05-27', temperature: 39.82042057506316, category: 'Heat Wave'},
+  { date: '2023-05-28', temperature: 39.798802561049044, category: 'Heat Wave'},
+  { date: '2023-05-29', temperature: 39.778524271201, category: 'Heat Wave'},
+  { date: '2023-05-30', temperature: 39.75950267935205, category: 'Heat Wave'}
+
+    ],
+  khammam: // Create an array of objects containing the data
+ [
+  { date: '2023-05-01', temperature: 41.661002189178106, category: 'Severe Heat Wave' },
+  { date: '2023-05-02', temperature: 41.12555354209236, category: 'Severe Heat Wave' },
+  { date: '2023-05-03', temperature: 40.842533444202076, category: 'Severe Heat Wave' },
+  { date: '2023-05-04', temperature: 40.55111134214338, category: 'Severe Heat Wave' },
+  { date: '2023-05-05', temperature: 40.40423476506799, category: 'Severe Heat Wave' },
+  { date: '2023-05-06', temperature: 40.3660837024597, category: 'Severe Heat Wave' },
+  { date: '2023-05-07', temperature: 40.32991065749348, category: 'Severe Heat Wave' },
+  { date: '2023-05-08', temperature: 40.2956130759146, category: 'Severe Heat Wave' },
+  { date: '2023-05-09', temperature: 40.26309372059747, category: 'Severe Heat Wave' },
+  { date: '2023-05-10', temperature: 40.23226039586842, category: 'Severe Heat Wave' },
+  { date: '2023-05-11', temperature: 40.20302568612172, category: 'Severe Heat Wave' },
+  { date: '2023-05-12', temperature: 40.17530670798735, category: 'Severe Heat Wave' },
+  { date: '2023-05-13', temperature: 40.14902487534832, category: 'Severe Heat Wave' },
+  { date: '2023-05-14', temperature: 40.124105676541, category: 'Severe Heat Wave' },
+  { date: '2023-05-15', temperature: 40.10047846310702, category: 'Severe Heat Wave' },
+  { date: '2023-05-16', temperature: 40.07807624949768, category: 'Severe Heat Wave' },
+  { date: '2023-05-17', temperature: 40.056835523163166, category: 'Severe Heat Wave' },
+  { date: '2023-05-18', temperature: 40.03669606448799, category: 'Severe Heat Wave' },
+  { date: '2023-05-19', temperature: 40.01760077606229, category: 'Severe Heat Wave' },
+  { date: '2023-05-20', temperature: 39.999495520804835, category: 'Heat Wave' },
+  { date: '2023-05-21', temperature: 39.98232896847897, category: 'Heat Wave' },
+  { date: '2023-05-22', temperature: 39.96605245016612, category: 'Heat Wave' },
+  { date: '2023-05-23', temperature: 39.95061982028449, category: 'Heat Wave'},
+  { date: '2023-05-24', temperature: 39.93598732576168, category: 'Heat Wave'},
+  { date: '2023-05-25', temperature: 39.92211348199025, category: 'Heat Wave'},
+  { date: '2023-05-26', temperature: 39.90895895521465, category: 'Heat Wave'},
+  { date: '2023-05-27', temperature: 39.89648645101604, category: 'Heat Wave'},
+  { date: '2023-05-28', temperature: 39.884660608578834, category: 'Heat Wave'},
+  { date: '2023-05-29', temperature: 39.87344790043918, category: 'Heat Wave'},
+  { date: '2023-05-30', temperature: 39.86281653743119, category: 'Heat Wave'}
+
+],
+  warangal: [
+    // Define the dat [
+  { date: '2023-04-01', temperature: 41.37919823417116, category: 'Severe Heat Wave' },
+  { date: '2023-04-02', temperature: 41.0958870925661, category: 'Severe Heat Wave' },
+  { date: '2023-04-03', temperature: 40.816893299811355, category: 'Severe Heat Wave' },
+  { date: '2023-04-04', temperature: 40.661851368326886, category: 'Severe Heat Wave' },
+  { date: '2023-04-05', temperature: 40.47380492322513, category: 'Heat Wave' },
+  { date: '2023-04-06', temperature: 40.314882901230995, category: 'Heat Wave' },
+  { date: '2023-04-07', temperature: 40.16619542604438, category: 'Heat Wave' },
+  { date: '2023-04-08', temperature: 40.027083394873614, category: 'Heat Wave' },
+  { date: '2023-05-01', temperature: 41.95660357030236, category: 'Severe Heat Wave' },
+  { date: '2023-05-02', temperature: 41.91015561779068, category: 'Severe Heat Wave' },
+  { date: '2023-05-03', temperature: 42.90602950580412, category: 'Severe Heat Wave' },
+  { date: '2023-05-04', temperature: 42.045820931258945, category: 'Severe Heat Wave' },
+  { date: '2023-05-05', temperature: 41.99948568762787, category: 'Severe Heat Wave' },
+  { date: '2023-05-06', temperature: 41.935148854540614, category: 'Severe Heat Wave' },
+  { date: '2023-05-07', temperature: 41.87205716752431, category: 'Severe Heat Wave' },
+  { date: '2023-05-08', temperature: 41.8101865285831, category: 'Severe Heat Wave' },
+  { date: '2023-05-09', temperature: 41.74951330610286, category: 'Severe Heat Wave' },
+  { date: '2023-05-10', temperature: 41.69001432582508, category: 'Severe Heat Wave' },
+  { date: '2023-05-11', temperature: 41.63166686199541, category: 'Severe Heat Wave' },
+  { date: '2023-05-12', temperature: 41.5744486286835, category: 'Severe Heat Wave' },
+  { date: '2023-05-13', temperature: 41.51833777127084, category: 'Severe Heat Wave' },
+  { date: '2023-05-14', temperature: 41.46331285810339, category: 'Severe Heat Wave' },
+  { date: '2023-05-15', temperature: 41.409352872305654, category: 'Severe Heat Wave' },
+  { date: '2023-05-16', temperature: 41.35643720375327, category: 'Severe Heat Wave' },
+  { date: '2023-05-17', temperature: 41.304545641200974, category: 'Severe Heat Wave' },
+  { date: '2023-05-18', temperature: 41.253658364562774, category: 'Severe Heat Wave' },
+  { date: '2023-05-19', temperature: 41.20375593734174, category: 'Severe Heat Wave' },
+  { date: '2023-05-20', temperature: 41.15481929920612, category: 'Severe Heat Wave' },
+  { date: '2023-05-21', temperature: 41.10682975870923, category: 'Severe Heat Wave' },
+  { date: '2023-05-22', temperature: 41.05976898615023, category: 'Severe Heat Wave' },
+  { date: '2023-05-23', temperature: 41.01361900657305, category: 'Severe Heat Wave' },
+  { date: '2023-05-24', temperature: 40.968362192900805, category: 'Severe Heat Wave' },
+  { date: '2023-05-25', temperature: 40.92398125920313, category: 'Severe Heat Wave' },
+  { date: '2023-05-26', temperature: 40.88045925409376, category: 'Severe Heat Wave' },
+  { date: '2023-05-27', temperature: 40.837779554255896, category: 'Severe Heat Wave' },
+  { date: '2023-05-28', temperature: 40.79592585809296, category: 'Severe Heat Wave' },
+  { date: '2023-05-29', temperature: 40.754882179502104, category: 'Severe Heat Wave' },
+  { date: '2023-05-30', temperature: 40.7146328417683, category: 'Severe Heat Wave' }
+
+  ]  
+  }
+  // Attach event listener to display button
+displayBtn.addEventListener('click', () => {
+  const selectedCity = citySelect.value;
+  const cityData = temperatureData[selectedCity];
+  displayData(cityData);
+});
+
+// Helper function to display data
+function displayData(data) {
+  // Clear table body
+  tempTableBody.innerHTML = '';
+  
+  // Loop through data and add rows to table
+  for (let i = 0; i < data.length; i++) {
+    const row = tempTableBody.insertRow();
+    const dateCell = row.insertCell();
+    const tempCell = row.insertCell();
+    const categoryCell = row.insertCell();
+    dateCell.textContent = data[i].date;
+    tempCell.textContent = data[i].temperature;
+    categoryCell.textContent=data[i].category;
+  }
+}
+
+  </script>
+  </body>
+</html>
