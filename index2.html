@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>City Temperature Information</title>
+    <style>
+      body {
+        background-color: #E8F0F2;
+        font-family: Arial, sans-serif;
+      }
+      h1 {
+    color: #2E86C1;
+    text-align: center;
+  }
+  
+  label {
+    display: block;
+    color: #2E86C1;
+    margin-top: 20px;
+  }
+  
+  select {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #F7F9F9;
+    margin-bottom: 20px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #2E86C1;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #FFFFFF;
+  }
+  
+  th {
+    background-color: #2E86C1;
+    color: #FFFFFF;
+    text-align: left;
+    padding: 10px;
+  }
+  
+  td {
+    border: 1px solid #CCCCCC;
+    padding: 10px;
+  }
+  
+  tbody tr:nth-child(even) {
+    background-color: #F7F9F9;
+  }
+</style>
+<script src="abc.js"></script>
+  </head>
+  <body>
+    <h1>AQI PREDICTION (MONTHWISE) IN TIER 2 CITIES OF TELANGNA -2023</h1>
+    <h3>NEURAL NETWORK MODEL HAS BEEN USED TO PREDICT THE AIR QUALITY INDEX IN TIER 2 CITIES OF TELANGNA-2023 </h3>
+    <label for="city-select">Select a city:</label>
+    <select id="city-select">
+      <option value="mahboobnagar">Mahboobnagar</option>
+      <option value="nizamabad">Nizamabad</option>
+      <option value="karimnagar">Karimnagar</option>
+      <option value="adilabad">Adilabad</option>
+      <option value="nalgonda">Nalgonda</option>
+      <option value="khammam">Khammam</option>
+      <option value="warangal">Warangal</option>
+    </select>
+    <button id="display-btn">Display Information</button>
+    <table id="temp-table">
+      <thead>
+        <tr>
+          <th>Month</th>
+          <th>Predicted AQI</th>
+          <th>Cateogry of Air Quality</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <script>
+        const citySelect = document.getElementById('city-select');
+const displayBtn = document.getElementById('display-btn');
+const tempTableBody = document.querySelector('#temp-table tbody');
+
+const AQIData = 
+{
+   mahboobnagar:
+   [
+   {month:'January',aqi:95.305275,category:'Satisfacotry'},
+   {month:'February',aqi:74.777466,category:'Satisfacotry'},
+   {month:'March',aqi:92.73616,category:'Satisfacotry'},
+   {month:'April',aqi:86.24182,category:'Satisfacotry'},
+   {month:'May',aqi:85.18872,category:'Satisfacotry'},
+   {month:'June',aqi:109.09163,category:'Moderate'},
+   {month:'July',aqi:81.44742 ,category:'Satisfacotry'},
+   {month:'August',aqi:88.26832,category:'Satisfacotry'},
+   {month:'September',aqi:80.157745,category:'Satisfacotry'},
+   {month:'October',aqi:93.2609,category:'Satisfacotry'},
+   {month:'November',aqi:113.85367,category:'Moderate'},
+   {month:'December',aqi:110.19765,category:'Moderate'}
+],adilabad:
+[
+   {month:'January',aqi:52.826134 ,category:'Satisfacotry'},
+   {month:'February',aqi:52.826134,category:'Satisfacotry'},
+   {month:'March',aqi:58.67954 ,category:'Satisfacotry'},
+   {month:'April',aqi:67.483864,category:'Satisfacotry'},
+   {month:'May',aqi:62.261948,category:'Satisfacotry'},
+   {month:'June',aqi:59.815624,category:'Satisfacotry'},
+   {month:'July',aqi:50.831573,category:'Satisfacotry'},
+   {month:'August',aqi:58.740185,category:'Satisfacotry'},
+   {month:'September',aqi:57.09843,category:'Satisfacotry'},
+   {month:'October',aqi:64.962326,category:'Satisfacotry'},
+   {month:'November',aqi:60.359436,category:'Satisfacotry'},
+   {month:'December',aqi:64.89641,category:'Satisfacotry'}
+],nizamabad:
+[
+   {month:'January',aqi:58.07804 ,category:'Satisfacotry'},
+   {month:'February',aqi:60.98428,category:'Satisfacotry'},
+   {month:'March',aqi:65.887375,category:'Satisfacotry'},
+   {month:'April',aqi:60.63512 ,category:'Satisfacotry'},
+   {month:'May',aqi:58.474915,category:'Satisfacotry'},
+   {month:'June',aqi:54.24423,category:'Satisfacotry'},
+   {month:'July',aqi:48.50268,category:'Good'},
+   {month:'August',aqi:54.53106,category:'Satisfacotry'},
+   {month:'September',aqi:53.87595 ,category:'Satisfacotry'},
+   {month:'October',aqi:63.470524,category:'Satisfacotry'},
+   {month:'November',aqi:58.264286,category:'Satisfacotry'},
+   {month:'December',aqi:62.674427,category:'Satisfacotry'}
+],nalgonda:
+[
+   {month:'January',aqi:82.94673 ,category:'Satisfacotry'},
+   {month:'February',aqi:86.49298,category:'Satisfacotry'},
+   {month:'March',aqi:95.305275,category:'Satisfacotry'},
+   {month:'April',aqi:94.56891,category:'Satisfacotry'},
+   {month:'May',aqi:93.74551 ,category:'Satisfacotry'},
+   {month:'June',aqi:89.218445,category:'Satisfacotry'},
+   {month:'July',aqi:79.33128 ,category:'Satisfacotry'},
+   {month:'August',aqi:81.94353,category:'Satisfacotry'},
+   {month:'September',aqi:85.56646,category:'Satisfacotry'},
+   {month:'October',aqi:90.02893,category:'Satisfacotry'},
+   {month:'November',aqi:84.74953,category:'Satisfacotry'},
+   {month:'December',aqi:86.49318,category:'Satisfacotry'}
+],
+karimnagar:
+[
+   {month:'January',aqi:83.28068 ,category:'Satisfacotry'},
+   {month:'February',aqi:93.48258,category:'Satisfacotry'},
+   {month:'March',aqi:100.82732,category:'Moderate'},
+   {month:'April',aqi:71.92971,category:'Satisfacotry'},
+   {month:'May',aqi:79.50085,category:'Satisfacotry'},
+   {month:'June',aqi:92.428276,category:'Satisfacotry'},
+   {month:'July',aqi:70.80036,category:'Satisfacotry'},
+   {month:'August',aqi:57.100098,category:'Satisfacotry'},
+   {month:'September',aqi:60.038624,category:'Satisfacotry'},
+   {month:'October',aqi:64.13191,category:'Satisfacotry'},
+   {month:'November',aqi:104.731026,category:'Moderate'},
+   {month:'December',aqi:133.07271,category:'Moderate'}
+],
+khammam:
+[
+   {month:'January',aqi:81.28008,category:'Satisfacotry'},
+   {month:'February',aqi:79.67786,category:'Satisfacotry'},
+   {month:'March',aqi:79.05845,category:'Satisfacotry'},
+   {month:'April',aqi:80.036865,category:'Satisfacotry'},
+   {month:'May',aqi:79.07611,category:'Satisfacotry'},
+   {month:'June',aqi:82.87848,category:'Satisfacotry'},
+   {month:'July',aqi:75.52669,category:'Satisfacotry'},
+   {month:'August',aqi:61.491383,category:'Satisfacotry'},
+   {month:'September',aqi:45.463734,category:'Good'},
+   {month:'October',aqi:59.933773,category:'Satisfacotry'},
+   {month:'November',aqi:79.60112,category:'Satisfacotry'},
+   {month:'December',aqi:112.95133,category:'Moderate'}
+],
+warangal:
+[
+   {month:'January',aqi:74.601746,category:'Satisfacotry'},
+   {month:'February',aqi:75.24227,category:'Satisfacotry'},
+   {month:'March',aqi:77.65569,category:'Satisfacotry'},
+   {month:'April',aqi:62.803604,category:'Satisfacotry'},
+   {month:'May',aqi:78.56173,category:'Satisfacotry'},
+   {month:'June',aqi:85.870964,category:'Satisfacotry'},
+   {month:'July',aqi:50.640484,category:'Satisfacotry'},
+   {month:'August',aqi:58.3654,category:'Satisfacotry'},
+   {month:'September',aqi:51.262615,category:'Satisfacotry'},
+   {month:'October',aqi:65.58577,category:'Satisfacotry'},
+   {month:'November',aqi:95.26352,category:'Satisfacotry'},
+   {month:'December',aqi:95.85236,category:'Satisfacotry'}
+]
+  }
+  // Attach event listener to display button
+displayBtn.addEventListener('click', () => {
+  const selectedCity = citySelect.value;
+  const cityData = AQIData[selectedCity];
+  displayData(cityData);
+});
+
+// Helper function to display data
+function displayData(data) {
+  // Clear table body
+  tempTableBody.innerHTML = '';
+  
+  // Loop through data and add rows to table
+  for (let i = 0; i < data.length; i++) {
+    const row = tempTableBody.insertRow();
+    const monthCell = row.insertCell();
+    const AQICell = row.insertCell();
+    const categoryCell = row.insertCell();
+    monthCell.textContent=data[i].month;
+    AQICell.textContent = data[i].aqi;
+    categoryCell.textContent=data[i].category;
+    
+  }
+}
+
+  </script>
+  </body>
+</html>
